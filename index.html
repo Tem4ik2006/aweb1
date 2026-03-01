@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>ЛР1</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Лабораторная работа №1</h1>
+        
+
+        
+        <section class="task">
+            <h2>Пункт 1. Подключение к серверу с помощью PuTTY</h2>
+            <div class="description">
+                <p><strong>Что происходит:</strong> На скриншоте изображено окно настройки программы <strong>PuTTY</strong> для подключения к учебному серверу по протоколу <strong>SSH</strong> (Secure Shell).</p>
+                <ul>
+                    <li><strong>Host Name (или IP-адрес):</strong> <code>kubsu-dev.ru</code> – доменное имя сервера.</li>
+                    <li><strong>Port:</strong> <code>58528</code> – нестандартный порт, выданный преподавателем.</li>
+                    <li><strong>Connection type:</strong> выбран <strong>SSH</strong> – шифрованное соединение.</li>
+                </ul>
+                <p>После нажатия <strong>Open</strong> PuTTY установит соединение и запросит логин (<code>u82321</code>) и пароль.</p>
+            </div>
+            <div class="screenshot">
+                <img src="s11.png" alt="Настройки PuTTY">
+                <p class="caption">Скриншот 1.1: Настройки PuTTY</p>
+            </div>
+            <div class="description">
+                <p><strong>Результат:</strong> Успешный вход в систему. Приглашение командной строки <code>u82321@web-server:~$</code> подтверждает, что пользователь готов к работе.</p>
+            </div>
+            <div class="screenshot">
+                <img src="s12.png" alt="Консоль после входа">
+                <p class="caption">Скриншот 1.2: Успешная авторизация</p>
+            </div>
+        </section>
+
+       
+        <section class="task">
+            <h2>Пункт 2. Определение IP-адреса веб-сервера kubsu.ru</h2>
+            <div class="command">
+                <strong>Команда:</strong> <code>ping -c 4 kubsu.ru</code>
+            </div>
+            <div class="description">
+                <p><strong>Что делает:</strong> Утилита <code>ping</code> отправляет ICMP-запросы и измеряет время ответа.</p>
+                <p><strong>Результат:</strong> IP-адрес сервера <strong>185.13.84.92</strong>. Все 4 пакета доставлены, потерь нет. Среднее время ответа – <strong>1.038 мс</strong>.</p>
+            </div>
+            <div class="screenshot">
+                <img src="s2.png" alt="Результат ping">
+                <p class="caption">Скриншот 2: ping kubsu.ru</p>
+            </div>
+        </section>
+
+        
+        <section class="task">
+            <h2>Пункт 3.1. A-запись домена kubsu.ru</h2>
+            <div class="command">
+                <strong>Команда:</strong> <code>nslookup -type=A kubsu.ru</code>
+            </div>
+            <div class="description">
+                <p><strong>Что делает:</strong> Запрос A-записи (IPv4-адрес) для домена.</p>
+                <p><strong>Результат:</strong> <strong>kubsu.ru</strong> → <strong>185.13.84.92</strong>.</p>
+            </div>
+            <div class="screenshot">
+                <img src="s31.png" alt="A-запись kubsu.ru">
+                <p class="caption">Скриншот 3.1: nslookup A kubsu.ru</p>
+            </div>
+        </section>
+
+       
+        <section class="task">
+            <h2>Пункт 3.2. MX-запись домена kubsu.ru</h2>
+            <div class="command">
+                <strong>Команда:</strong> <code>nslookup -type=MX kubsu.ru</code>
+            </div>
+            <div class="description">
+                <p><strong>Что делает:</strong> Запрос почтовых серверов (MX-записей) для домена.</p>
+                <p><strong>Результат:</strong> Получены три почтовых сервера с приоритетами:</p>
+                <ul>
+                    <li>приоритет 10: <strong>mx2.kubannet.ru</strong></li>
+                    <li>приоритет 20: <strong>mx.kubannet.ru</strong></li>
+                    <li>приоритет 50: <strong>mx.kubsu.ru</strong></li>
+                </ul>
+            </div>
+            <div class="screenshot">
+                <img src="s32.png" alt="MX-запись kubsu.ru">
+                <p class="caption">Скриншот 3.2: nslookup MX kubsu.ru</p>
+            </div>
+        </section>
+
+        
+        <section class="task">
+            <h2>Пункт 3.3. A-запись домена kubsu-dev.ru</h2>
+            <div class="command">
+                <strong>Команда:</strong> <code>nslookup -type=A kubsu-dev.ru</code>
+            </div>
+            <div class="description">
+                <p><strong>Что делает:</strong> Запрос A-записи для kubsu-dev.ru.</p>
+                <p><strong>Результат:</strong> IP-адрес <strong>212.192.134.135</strong>.</p>
+            </div>
+            <div class="screenshot">
+                <img src="s33.png" alt="A-запись kubsu-dev.ru">
+                <p class="caption">Скриншот 3.3: nslookup A kubsu-dev.ru</p>
+            </div>
+        </section>
+
+        
+        <section class="task">
+            <h2>Пункт 3.4. MX-запись домена kubsu-dev.ru</h2>
+            <div class="command">
+                <strong>Команда:</strong> <code>nslookup -type=MX kubsu-dev.ru</code>
+            </div>
+            <div class="description">
+                <p><strong>Что делает:</strong> Запрос MX-записей для kubsu-dev.ru.</p>
+                <p><strong>Результат:</strong> Для домена нет MX-записей (ответ <code>No answer</code>). В авторитативном ответе указаны DNS-серверы:</p>
+                <ul>
+                    <li>origin: <strong>nsl.nameself.com</strong></li>
+                    <li>mail addr: <strong>support.regtime.net</strong></li>
+                </ul>
+            </div>
+            <div class="screenshot">
+                <img src="s34.png" alt="MX-запись kubsu-dev.ru">
+                <p class="caption">Скриншот 3.4: nslookup MX kubsu-dev.ru</p>
+            </div>
+        </section>
+
+        
+        <section class="task">
+            <h2>Пункт 4.1. Дата регистрации домена kubsu.ru</h2>
+            <div class="command">
+                <strong>Команда:</strong> <code>whois kubsu.ru</code>
+            </div>
+            <div class="description">
+                <p><strong>Что делает:</strong> Запрос регистрационных данных домена.</p>
+                <p><strong>Результат:</strong> Домен зарегистрирован <strong>28 марта 1998 года</strong> (<code>created: 1998-03-28T12:18:30Z</code>). Срок действия оплачен до <strong>30 апреля 2026 года</strong>.</p>
+            </div>
+            <div class="screenshot">
+                <img src="s41.png" alt="whois kubsu.ru">
+                <p class="caption">Скриншот 4.1: whois kubsu.ru</p>
+            </div>
+        </section>
+
+        
+        <section class="task">
+            <h2>Пункт 4.2. Дата регистрации домена kubsu-dev.ru</h2>
+            <div class="command">
+                <strong>Команда:</strong> <code>whois kubsu-dev.ru</code>
+            </div>
+            <div class="description">
+                <p><strong>Что делает:</strong> Запрос регистрационных данных для kubsu-dev.ru.</p>
+                <p><strong>Результат:</strong> Домен зарегистрирован <strong>12 февраля 2020 года</strong> (<code>created: 2020-02-12T15:55:06Z</code>). Срок действия – до <strong>12 февраля 2027 года</strong>.</p>
+            </div>
+            <div class="screenshot">
+                <img src="s42.png" alt="whois kubsu-dev.ru">
+                <p class="caption">Скриншот 4.2: whois kubsu-dev.ru</p>
+            </div>
+        </section>
+
+        
+        <section class="task">
+            <h2>Пункт 5. Создание веб-страницы и размещение в git-репозитории</h2>
+
+            
+            <div class="subtask">
+                <h3>5.1. Подготовка локального репозитория</h3>
+                <div class="description">
+                    <p>На локальном компьютере создана папка <code>lab1</code>, в которую помещены все скриншоты и файл <code>index.html</code>.</p>
+                </div>
+                <div class="screenshot">
+                    <img src="s51.png" alt="Содержимое папки">
+                    <p class="caption">Скриншот 5.1: Содержимое папки lab1</p>
+                </div>
+            </div>
+
+            
+            <div class="subtask">
+                <h3>5.2. Создание файла index.html</h3>
+                <div class="description">
+                    <p>Создан файл <code>index.html</code> с базовой структурой HTML, содержащий ссылки на все скриншоты и пояснения.</p>
+                </div>
+               
+            </div>
+
+            
+            <div class="subtask">
+                <h3>5.3. Инициализация git-репозитория и загрузка на GitHub</h3>
+                <div class="command">
+                    <strong>Команды:</strong>
+                    <pre><code>git init
+git add .
+git commit -m "Добавлены скриншоты и index.html"
+git remote add origin https://github.com/Tem4ik2006/aweb1.git
+git branch -M main
+git push -u origin main</code></pre>
+                </div>
+                <div class="description">
+                    <p>Репозиторий инициализирован, файлы добавлены, создан коммит, установлена связь с удалённым репозиторием на GitHub (пользователь Tem4ik2006, репозиторий aweb1). Изменения успешно отправлены.</p>
+                </div>
+                <div class="screenshot">
+                    <img src="s53.png" alt="Git push">
+                    <p class="caption">Скриншот 5.3: Отправка файлов на GitHub</p>
+                </div>
+            </div>
+
+            
+            <div class="subtask">
+                <h3>5.4. Клонирование репозитория на учебный сервер</h3>
+                <div class="command">
+                    <strong>Команда на сервере:</strong> <code>git clone git@github.com:Tem4ik2006/aweb1.git</code>
+                </div>
+                <div class="description">
+                    <p>На сервере выполнен клон репозитория по SSH. Для этого предварительно был сгенерирован SSH-ключ и добавлен в аккаунт GitHub.</p>
+                </div>
+                <div class="screenshot">
+                    <img src="s5444.png" alt="Клонирование">
+                    <p class="caption">Скриншот 5.4.1: Клонирование репозитория</p>
+                </div>
+                <div class="screenshot">
+                    <img src="ssh1.png" alt="Генерация ключа">
+                    <p class="caption">Скриншот 5.4.2: Генерация SSH-ключа</p>
+                </div>
+                <div class="screenshot">
+                    <img src="ssh2.png" alt="Просмотр ключа">
+                    <p class="caption">Скриншот 5.4.3: Публичный ключ</p>
+                </div>
+                <div class="screenshot">
+                    <img src="ssh3.png" alt="Добавление ключа на GitHub">
+                    <p class="caption">Скриншот 5.4.4: Добавление ключа в GitHub</p>
+                </div>
+            </div>
+
+            
+            <div class="subtask">
+                <h3>5.5. Перенос в каталог www</h3>
+                <div class="command">
+                    <strong>Команды:</strong>
+                    <pre><code>mkdir -p ~/www/hw1
+cp -r ~/aweb1/* ~/www/hw1/
+ls ~/www/hw1/</code></pre>
+                </div>
+                <div class="description">
+                    <p>Создан каталог <code>~/www/hw1</code> (доступный через веб), в него скопированы файлы из клонированного репозитория. Команда <code>ls</code> подтверждает наличие файлов.</p>
+                </div>
+                <div class="screenshot">
+                    <img src="s54.png" alt="mkdir">
+                    <p class="caption">Скриншот 5.5.1: Создание каталога</p>
+                </div>
+                <div class="screenshot">
+                    <img src="s55.png" alt="cp и ls">
+                    <p class="caption">Скриншот 5.5.2: Копирование и проверка</p>
+                </div>
+            </div>
+
+            
+            <div class="subtask">
+                <h3>5.6. Проверка доступа к странице</h3>
+                <div class="description">
+                    <p>В браузере открыт адрес <code>http://u82321.kubsu-dev.ru/hw1/</code>. Страница загружается, все скриншоты отображаются корректно.</p>
+                </div>
+                
+            </div>
+        </section>
+
+        
+        <section class="task">
+            <h2>Пункт 6. Копирование файлов через SFTP</h2>
+            <div class="command">
+                <strong>Программа:</strong> FileZilla (протокол SFTP)
+            </div>
+            <div class="description">
+                <p><strong>Что делает:</strong> FileZilla подключается к серверу <code>kubsu-dev.ru</code> (порт 58528, логин u82321) по SFTP. Файлы из каталога <code>~/www/hw1</code> скачиваются на локальный компьютер.</p>
+                <p><strong>Результат:</strong> Все файлы отчёта успешно скопированы. Затем новые скриншоты FileZilla добавлены в Git и отправлены на сервер.</p>
+            </div>
+            <div class="screenshot">
+                <img src="s62.png" alt="FileZilla подключение">
+                <p class="caption">Скриншот 6.1: Подключение к серверу</p>
+            </div>
+            <div class="screenshot">
+                <img src="s64.png" alt="FileZilla передача">
+                <p class="caption">Скриншот 6.2: Передача файлов</p>
+            </div>
+            <div class="description">
+                <p>После скачивания скриншоты FileZilla были добавлены в локальный репозиторий и отправлены на GitHub:</p>
+            </div>
+            <div class="screenshot">
+                <img src="s65.png" alt="Git add/commit/push">
+                <p class="caption">Скриншот 6.3: Добавление скриншотов в Git</p>
+            </div>
+            <div class="description">
+                <p>На сервере выполнено обновление репозитория и копирование файлов в <code>~/www/hw1</code>:</p>
+            </div>
+            <div class="screenshot">
+                <img src="s66.png" alt="Git pull на сервере">
+                <p class="caption">Скриншот 6.4: Обновление на сервере</p>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
